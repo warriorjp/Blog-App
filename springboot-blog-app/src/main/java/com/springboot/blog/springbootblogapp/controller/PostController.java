@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.springboot.blog.springbootblogapp.model.PostModel;
 import com.springboot.blog.springbootblogapp.model.PostResponse;
 import com.springboot.blog.springbootblogapp.service.PostService;
+import com.springboot.blog.springbootblogapp.utils.AppConstant;
 
 @RestController
 @RequestMapping("/api/posts")
@@ -35,9 +36,11 @@ public class PostController {
 	}
 
 	@GetMapping
-	public PostResponse getAllPost(@RequestParam(value = "pageNo", defaultValue = "0",required = false) int pageNo,
-			@RequestParam(value = "pageSize", defaultValue = "10",required = false) int pageSize) {
-		return postService.getAllPosts(pageNo,pageSize);
+	public PostResponse getAllPost(@RequestParam(value = "pageNo", defaultValue = AppConstant.DEFAULT_PAGE_NUMBER,required = false) int pageNo,
+			@RequestParam(value = "pageSize", defaultValue = AppConstant.DEFAULT_PAGE_SIZE,required = false) int pageSize
+			,@RequestParam(value = "sortBy",defaultValue = AppConstant.DEFAULT_SORT_BY,required = false) String sortBy,
+			@RequestParam(value = "sortOrd",defaultValue = AppConstant.DEFAULT_SORT_ORDER,required = false) String sortOrd) {
+		return postService.getAllPosts(pageNo,pageSize,sortBy,sortOrd);
 	}
 
 	@GetMapping("/{id}")

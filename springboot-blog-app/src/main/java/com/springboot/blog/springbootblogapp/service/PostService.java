@@ -6,15 +6,12 @@ import com.springboot.blog.springbootblogapp.model.PostModel;
 import com.springboot.blog.springbootblogapp.model.PostResponse;
 
 
-
-
-
 public interface PostService {
 
 
 	PostModel createPost(PostModel postModel);
 	
-	PostResponse getAllPosts(int pageNo,int pageSize);
+	PostResponse getAllPosts(int pageNo,int pageSize,String sortBy,String sortOrd);
 	
 	PostModel getPostsByID(long id);
 	
