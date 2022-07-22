@@ -3,6 +3,7 @@ package com.springboot.blog.springbootblogapp.service;
 import java.util.List;
 
 import com.springboot.blog.springbootblogapp.model.PostModel;
+import com.springboot.blog.springbootblogapp.model.PostResponse;
 
 
 
@@ -13,7 +14,7 @@ public interface PostService {
 
 	PostModel createPost(PostModel postModel);
 	
-	List<PostModel> getAllPosts();
+	PostResponse getAllPosts(int pageNo,int pageSize);
 	
 	PostModel getPostsByID(long id);
 	
