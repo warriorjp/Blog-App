@@ -1,9 +1,11 @@
 package com.springboot.blog.springbootblogapp.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.List;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import com.springboot.blog.springbootblogapp.entity.Comment;
 
 public interface CommentRepository extends JpaRepository<Comment, Long>{
 
+	List<Comment> findByPostId(long postId);
 }

@@ -1,5 +1,8 @@
 package com.springboot.blog.springbootblogapp.service.impl;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +36,25 @@ public class CommentServiceImpl implements CommentService {
 		return mapToDto(newComment);
 	}
 
+	@Override
+	public List<CommentModel> getCommentById(long id) {
+	   List<Comment> comments=commentRepository.findByPostId(id);
+	   if(comments.isEmpty()) {
+		   throw new ResourceNotFoundException("Post", "id", id);
+	   }
+		return comments.stream().map(comment-> mapToDto(comment)).collect(Collectors.toList());
+	}
+	
+	
+	@Override
+	public CommentModel getCommentByPostId(long id) {
+		Comment comment=commentRepository.findById(id).orElseThrow(()->
+		new ResourceNotFoundException("Posts", "id", id));
+		return mapToDto(comment);
+	}
+
+	
+	
 	private CommentModel mapToDto(Comment comment) {
 		CommentModel com = new CommentModel();
 		com.setBody(comment.getBody());
@@ -51,5 +73,9 @@ public class CommentServiceImpl implements CommentService {
 		return comment;
 
 	}
+
+	
+	
+	
 
 }
