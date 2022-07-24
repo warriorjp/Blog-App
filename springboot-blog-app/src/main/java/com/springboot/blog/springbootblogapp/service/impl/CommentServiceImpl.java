@@ -3,6 +3,7 @@ package com.springboot.blog.springbootblogapp.service.impl;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +23,10 @@ public class CommentServiceImpl implements CommentService {
 
 	@Autowired
 	private PostRepository postRepository;
+	
+	@Autowired
+	
+	private ModelMapper modelMapper;
 
 	@Override
 	public CommentModel createModel(long postId, CommentModel commentModel) {
@@ -56,20 +61,12 @@ public class CommentServiceImpl implements CommentService {
 	
 	
 	private CommentModel mapToDto(Comment comment) {
-		CommentModel com = new CommentModel();
-		com.setBody(comment.getBody());
-		com.setEmail(comment.getEmail());
-		com.setId(comment.getId());
-		com.setName(comment.getName());
-		return com;
+		CommentModel commentModel=modelMapper.map(comment, CommentModel.class);
+		return commentModel;
 	}
 
 	private Comment mapToEntity(CommentModel commentModel) {
-		Comment comment = new Comment();
-		comment.setBody(commentModel.getBody());
-		comment.setEmail(commentModel.getEmail());
-		comment.setId(commentModel.getId());
-		comment.setName(commentModel.getName());
+		Comment comment=modelMapper.map(commentModel, Comment.class);
 		return comment;
 
 	}
